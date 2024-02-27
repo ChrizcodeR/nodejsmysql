@@ -1,5 +1,6 @@
 import express from 'express'
-import {database} from './db.js'
+import {pool} from './db.js'
+
 
 const app = express()
 
@@ -9,15 +10,14 @@ app.get('/', (req, res)=> {
 })
 
 app.get('/ping', async (req, res)=> {
-    const [result] = await database.query(`SELECT "hello word" as RESULT`);
+    const [result] = await pool.query(`SELECT "hello word" as RESULT`);
     console.log(result)
     res.json(result[0])
 })
 
 app.get('/create', async (req, res)=> {
-     const result = await database.query(`INSERT INTO users(name) VALUES ("Chriz")`);
+     const result = await pool.query(`INSERT INTO users(name) VALUES ("Chriz")`);
      res.json(result)
-     console.log(res)
    
 })
 
